@@ -14,8 +14,4 @@ COPY pyproject.toml poetry.lock $WORKDIR/
 RUN poetry update
 COPY ./src $WORKDIR/src
 
-#RUN poetry run python src/manage.py collectstatic --noinput
-#
-#CMD ["poetry", "run", "uvicorn", "server.asgi:app", "--host", "0.0.0.0", "--port", "8000"]
-
 ENTRYPOINT ["make", "start-prod"]
