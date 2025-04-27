@@ -4,7 +4,7 @@ services:
       context: ./backend
     container_name: backend
     ports:
-      - '${TCP_PORT}:8000'
+      - '${TCP_PORT}:${TCP_PORT}'
     environment:
       - BACKEND__STATE=${BACKEND__STATE}
       - BACKEND__DJANGO_SECRET_KEY=${BACKEND__DJANGO_SECRET_KEY}
