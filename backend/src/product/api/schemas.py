@@ -1,13 +1,10 @@
-from pydantic import BaseModel
+from core.schemas.base import PublicSchema, ORMSchema
 
-class ReadProductSchema(BaseModel):
+class ReadProductSchema(ORMSchema):
     id: int
     name: str
     category_id: int
 
-    class Config:
-        from_attributes = True
-
-class CreateProductSchema(BaseModel):
+class CreateProductSchema(PublicSchema):
     name: str
     category_id: int

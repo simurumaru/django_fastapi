@@ -2,20 +2,20 @@ from fastapi import APIRouter
 from product.models import Product
 from product.api.schemas import CreateProductSchema, ReadProductSchema
 
+from asgiref.sync import sync_to_async
+
 router = APIRouter()
 
 @router.get(
     "/products",
-    response_model=list[ReadProductSchema]
 )
-def list_categories():
-    products = Product.objects.all()
+async def list_products() -> list[ReadProductSchema]:
+    products = await sync_to_async(list)(Product.objects.all())
     return [ReadProductSchema.model_validate(product) for product in products]
 
 @router.post(
     "/products",
-    response_model=ReadProductSchema
 )
-def create_category(data: CreateProductSchema):
-    category = Product.objects.create(**data.dict())
-    return category
+async def create_product(data: CreateProductSchema) -> ReadProductSchema:
+    product = await sync_to_async(Product.objects.create)(**data.model_dump())
+    return ReadProductSchema.model_validate(product)
