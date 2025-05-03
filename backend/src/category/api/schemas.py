@@ -1,11 +1,8 @@
-from pydantic import BaseModel
+from core.schemas.base import PublicSchema, ORMSchema
 
-class ReadCategorySchema(BaseModel):
+class ReadCategorySchema(ORMSchema):
     id: int
     name: str
 
-    class Config:
-        from_attributes = True
-
-class CreateCategorySchema(BaseModel):
+class CreateCategorySchema(PublicSchema):
     name: str

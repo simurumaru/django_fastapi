@@ -12,11 +12,16 @@ from fastapi.routing import Mount
 from fastapi.staticfiles import StaticFiles
 
 from core.application import factory
+from core.errors import EnvVariableMissingError
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / '.env')
 
-STATE = os.getenv("BACKEND__STATE", "prod")
+STATE = os.getenv("BACKEND__STATE")
+
+if not STATE:
+    raise EnvVariableMissingError("BACKEND__STATE")
+
 settings_module = f"server.settings.{STATE}"
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 django.setup()

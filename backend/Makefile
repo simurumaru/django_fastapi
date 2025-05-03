@@ -18,7 +18,6 @@ start-prod:
 	@echo "🚀 Starting server in production mode..."
 	poetry run uvicorn server.asgi:app --port ${TCP_PORT} --host 0.0.0.0
 
-
 collect-static:
 	@echo "🗂️ Collecting static files..."
 	poetry run python -m manage collectstatic --noinput
